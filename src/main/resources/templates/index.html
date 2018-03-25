@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="usersProject">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Users Page</title>
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/users.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+    <script src="user_controller.js"></script>
+    <script type="text/javascript">
+
+function disable()
+{
+ var elem = document.getElementById("chkbox").disabled=true;
+}
+</script>
+</head>
+<body ng-controller="UsersController as UsersCtrl">
+<h1>Users list</h1>
+
+<div class="top">
+<table class="table-style">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th> Year of Birth</th>
+        <th>Is Active?</th>
+
+    </tr>
+    <tr ng-repeat="user in UsersCtrl.users">
+        <td> {{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td> {{user.surname}}</td>
+        <td>{{user.yearOfBirth}}</td>
+        <td><input type="checkbox" ng-model="user.active" ng-disabled="true"></td>
+        <td>
+            <button  class=" btn-success custom-width" ng-click="UsersCtrl.editUser($index)">edit</button>
+        </td>
+        <td>
+            <button class="btn-danger custom-width" ng-click="UsersCtrl.deleteUser($index)">delete</button>
+        </td>
+    </tr>
+    <tfoot>
+    <tr>
+        <td>
+</table>
+    <label>
+        <br>
+        <button ng-click="UsersCtrl.openEmptyForm()">Add User</button>
+    </label>
+        </td>
+    </tr>
+    </tfoot>
+
+</table>
+</div>
+<div class = "bottom">
+    <form  class="form-style" ng-show="UsersCtrl.isFormVisible" name="usersForm"  novalidate>
+        <h2>User form</h2>
+        <label>
+            <span>User id:</span>
+            <input class="faded" readonly type="text" name="id" ng-model="UsersCtrl.getCurrentUser().id" placeholder="User Id">
+        </label>
+        <label>
+            <span>Name:</span>
+            <input type="text" required name="name" ng-model="UsersCtrl.getCurrentUser().name" placeholder="User Name" >
+        </label>
+        <label>
+            <span> Surname:</span>
+            <input type="text" required name="surname" ng-model="UsersCtrl.getCurrentUser().surname" placeholder="User Surname" >
+        </label>
+        <label>
+            <span> Year of birth:</span>
+            <input type="number" required name="year" ng-model="UsersCtrl.getCurrentUser().yearOfBirth" pattern="\d{4}" placeholder="eg. 1984"  max="2018" >
+        </label>
+        <label>
+            <span> Active:</span>
+            <input type="checkbox"  name="activ" ng-model="UsersCtrl.getCurrentUser().active"  >
+        </label>
+        <label>
+            <span>&nbsp;</span>
+            <button type="submit" class="btn-success custom-width"  ng-disabled="!usersForm.$valid"
+                    ng-click="usersForm.$valid && UsersCtrl.submitForm(UsersCtrl.getCurrentUser())">
+                Submit
+            </button>
+            <button type="reset" class="btn-danger custom-width" ng-click="UsersCtrl.closeForm()">Close Form</button>
+        </label>
+    </form>
+</div>
+</body>
+</html>
