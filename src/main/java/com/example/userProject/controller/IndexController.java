@@ -29,6 +29,7 @@ public class IndexController {
     @ResponseBody
     public Set<User> getUsers() {
         String test="";
+        //only for test jenkins
         return userService.getUsers();
 
     }
