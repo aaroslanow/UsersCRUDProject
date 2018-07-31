@@ -28,6 +28,7 @@ public class IndexController {
     @RequestMapping(value = {"/users"})
     @ResponseBody
     public Set<User> getUsers() {
+        String test="";
         return userService.getUsers();
 
     }
